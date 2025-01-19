@@ -1,20 +1,20 @@
 -- set spawner name
-local spawner = 'witch'
-
-
+local spawner = 'Witch'
 local m = peripheral.find("monitor")
 local modem = peripheral.find("modem")
+local side = 'top'
+
 modem.open(15)
 m.clear()
-rs.setOutput('right', false)
+rs.setOutput(side, false)
 
 while true do
     
     local event, side, channel, replyChannel, message, distance = os.pullEvent("modem_message")
-       spawn_state = rs.getOutput('right')
+       spawn_state = rs.getOutput(side)
        --modem.transmit(43, 15, spawner ..' '.. tostring(spawn_state))
        if message == spawner and spawn_state == false then
-           rs.setOutput('right', true)
+           rs.setOutput(side, true)
            m.clear()
            m.setCursorPos(1,1)
            m.write(spawner .. ' spawner set online')
@@ -22,13 +22,13 @@ while true do
            else
            end
        if message ==  spawner and spawn_state == true then
-           rs.setOutput('right', false)
+           rs.setOutput(side, false)
            m.clear()
            m.setCursorPos(1,1)
            m.write(spawner .. ' spawner set offline')
            else
            sleep(1)
-           changed_state = rs.getOutput('right')
+           changed_state = rs.getOutput(side)
            
            modem.transmit(43,15, spawner .. ' ' .. tostring(changed_state))
            end
